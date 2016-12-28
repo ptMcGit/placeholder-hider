@@ -5,22 +5,23 @@ function PlaceholderHider(itemClass, placeholderClass){
     this.defaultDisplay = document.querySelectorAll("." + this.placeholderClass)[0].style.display;
 }
 
-PlaceholderHider.prototype.gcmInitialValue = 4;
-
 // use to modify the gcm i.e. to change the numeric value that causes placeholders to disappear
-PlaceholderHider.prototype.gcmForAllWidths = (function(){
-    var initialValue = PlaceholderHider.prototype.gcmInitialValue;
+PlaceholderHider.prototype.gcmForAllWidths = (function(value){
+    var initialValue = 4;
+
     return function setter(val){
         if(typeof arguments[0] === 'number') {
-            setter.gcm = arguments[0];
+            setter.gcm = Math.floor(arguments[0]);
             this.hidePlaceholders();
         }
-        if(!setter.gcm)
+        if(!setter.gcm){
+            console.log(initialValue);
             return initialValue;
+        }
         else
             return setter.gcm;
     };
-});
+})();
 
 // unhide placeholders then hide placeholders according to math on gcm
 PlaceholderHider.prototype.hidePlaceholders = function hp() {
@@ -32,15 +33,18 @@ PlaceholderHider.prototype.hidePlaceholders = function hp() {
         hp.gcmForAllWidths = this.gcmForAllWidths();
 
     if(hp.gcmForAllWidths !== this.gcmForAllWidths()) {
-        for(i = 0; i < this.placeholders.length; i++)
+        for(i = 0; i < placeholders.length; i++)
             placeholders[i].style.display = this.defaultDisplay;
         hp.gcmForAllWidths = this.gcmForAllWidths();
     }
 
     var totalElements = items.length + placeholders.length;
-
-    while(totalElements % this.gcmForAllWidths !== 0) {
+    var i = 0;
+    console.log(this.gcmForAllWidths());
+    while(totalElements % this.gcmForAllWidths() !== 0) {
+        console.log(placeholders[i].style.display, "style");
         placeholders[i].style.display = 'none';
+        console.log(totalElements);
         totalElements--;
         i++;
     }
