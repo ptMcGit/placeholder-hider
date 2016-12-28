@@ -1,0 +1,14 @@
+{
+  "name": "placeholder-hider",
+  "version": "1.0.0",
+  "description": "Hide placeholders to maintain the shape of group of floating elements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine placeholderhider_spec.js"
+  },
+  "keywords": [
+    "placeholder"
+  ],
+  "author": "zdhadgraft@gtcc.edu",
+  "license": "MIT"
+}
