@@ -12,7 +12,6 @@ describe("PlaceholderHider", function() {
         this.itemClass = itemElements,
         this.placeholderClass = placeholderElements,
         this.querySelectorAll = function(elementClass){
-            console.log(elementClass);
             var e = elementClass.slice(1);
             return this[e];
         }
@@ -51,7 +50,7 @@ describe("PlaceholderHider", function() {
             expect(typeof this.pHH.gcmForAllWidths()).toEqual('number')
         });
 
-        it("sets a number", function(){
+        it("sets gcm when given a number argument", function(){
             this.pHH.gcmForAllWidths(5);
             this.pHH.gcmForAllWidths(6);
             expect(this.pHH.gcmForAllWidths()).toEqual(6);
@@ -59,17 +58,33 @@ describe("PlaceholderHider", function() {
 
     });
 
+    describe("#hidePlaceholder undisplays placeholders to keep this grouping sqaure", function() {
+        var countHiddenPlaceholders = function(placeholders){
+            var count = 0;
+            for(var i in placeholders)
+                if(placeholders[i].style.display === 'none')
+                    count++
+            return count;
+        };
 
-    describe("#hidePlaceholder", function() {
-        xit("placeholders are undisplayed as needed to keep grouping square", function() {
+        beforeEach(function(){
             this.items = mockElements(9);
-            this.placeholders = mockElements(3);
-            console.log(this.items, "this.items");
+            this.placeholders = mockElements(5);
             document = new MockDocument(this.items, this.placeholders);
             this.pHH = new PlaceholderHider('itemClass', 'placeholderClass');
-            this.pHH.gcmForAllWidths(4);
-            this.pHH.hidePlaceholders();
         });
+
+        it("undisplays placeholders when #hidePlaceholders is called", function() {
+            this.pHH.hidePlaceholders();
+            expect(countHiddenPlaceholders(this.placeholders)).toEqual(2);
+        });
+
+        it("when gcm is changed a call #hidePlaceholders undisplays placeholders appropriately", function(){
+            this.pHH.gcmForAllWidths(6);
+            this.pHH.hidePlaceholders();
+            expect(countHiddenPlaceholders(this.placeholders)).toEqual(2);
+        });
+
     });
 
 });

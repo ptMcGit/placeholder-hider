@@ -15,7 +15,6 @@ PlaceholderHider.prototype.gcmForAllWidths = (function(value){
             this.hidePlaceholders();
         }
         if(!setter.gcm){
-            console.log(initialValue);
             return initialValue;
         }
         else
@@ -33,18 +32,16 @@ PlaceholderHider.prototype.hidePlaceholders = function hp() {
         hp.gcmForAllWidths = this.gcmForAllWidths();
 
     if(hp.gcmForAllWidths !== this.gcmForAllWidths()) {
-        for(i = 0; i < placeholders.length; i++)
+        for(var i in placeholders)
             placeholders[i].style.display = this.defaultDisplay;
         hp.gcmForAllWidths = this.gcmForAllWidths();
     }
 
     var totalElements = items.length + placeholders.length;
     var i = 0;
-    console.log(this.gcmForAllWidths());
+
     while(totalElements % this.gcmForAllWidths() !== 0) {
-        console.log(placeholders[i].style.display, "style");
         placeholders[i].style.display = 'none';
-        console.log(totalElements);
         totalElements--;
         i++;
     }
