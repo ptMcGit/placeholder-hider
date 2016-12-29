@@ -11,9 +11,14 @@ describe("PlaceholderHider", function(){
     function MockDocument(itemElements, placeholderElements) {
         this.itemClass = itemElements,
         this.placeholderClass = placeholderElements,
+
         this.querySelectorAll = function(elementClass){
+            // return an empty array unless .itemClass or .placeholderClass
             var e = elementClass.slice(1);
-            return this[e];
+            if(this[e])
+                return this[e];
+            else
+                return Array(0);
         };
     }
 
@@ -37,6 +42,34 @@ describe("PlaceholderHider", function(){
             this.pHH = new PlaceholderHider('itemClass', 'placeholderClass');
             expect(document.querySelectorAll).toHaveBeenCalledWith('.placeholderClass');
         });
+
+        describe("throws an exception when", function(){
+            beforeEach(function(){
+                document = new MockDocument(this.items, this.placeholders);
+            });
+
+            var nonClass = 'nonexistent-class'
+
+            it("item class is nonexistent", function(){
+                expect(function(){
+                    new PlaceholderHider(nonClass, 'placeholderClass')})
+                    .toThrowError()
+            });
+
+            it("placeholder class is nonexistent", function(){
+                expect(function(){
+                    new PlaceholderHider('itemClass', placeholderClass)})
+                    .toThrowError()
+            });
+
+            it("arguments.length !== 2", function(){
+                expect(function(){
+                    new PlaceholderHider()})
+                    .toThrowError()
+            });
+
+        });
+
     });
 
     describe("#gcm", function(){

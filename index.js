@@ -1,4 +1,16 @@
 function PlaceholderHider(itemClass, placeholderClass){
+    var errors = []
+    if(arguments.length !== 2)
+        throw new Error("Expected two arguments, received " + arguments.length);
+
+    for(var i in Array.prototype.slice.call(arguments)) {
+        if(document.querySelectorAll("." + arguments[i]).length === 0)
+            errors.push(arguments[i]);
+    }
+
+    if(errors.length > 0)
+        throw new Error("Unable to find elements for " + errors.join(', '));
+
     this.itemClass = itemClass;
     this.placeholderClass = placeholderClass;
     // assuming all placeholders use same initial display
