@@ -6,7 +6,7 @@ function PlaceholderHider(itemClass, placeholderClass){
 }
 
 // use to modify the gcm i.e. to change the numeric value that causes placeholders to disappear
-PlaceholderHider.prototype.gcmForAllWidths = (function(value){
+PlaceholderHider.prototype.gcm = (function(value){
     var initialValue = 4;
 
     return function setter(val){
@@ -28,22 +28,16 @@ PlaceholderHider.prototype.hidePlaceholders = function hp() {
     var items = document.querySelectorAll("." + this.itemClass);
     var placeholders = document.querySelectorAll("." + this.placeholderClass);
 
-    if(!hp.gcmForAllWidths)
-        hp.gcmForAllWidths = this.gcmForAllWidths();
-
-    if(hp.gcmForAllWidths !== this.gcmForAllWidths()) {
-        for(var i in placeholders)
-            placeholders[i].style.display = this.defaultDisplay;
-        hp.gcmForAllWidths = this.gcmForAllWidths();
-    }
+    for(var j in placeholders)
+        placeholders[j].style.display = this.defaultDisplay;
 
     var totalElements = items.length + placeholders.length;
-    var i = 0;
+    var k = 0;
 
-    while(totalElements % this.gcmForAllWidths() !== 0) {
-        placeholders[i].style.display = 'none';
+    while(totalElements % this.gcm() !== 0) {
+        placeholders[k].style.display = 'none';
         totalElements--;
-        i++;
+        k++;
     }
 };
 
