@@ -4,7 +4,7 @@
   "description": "Hide placeholders to maintain the shape of group of floating elements.",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine placeholderhider_spec.js"
+    "test": "jasmine ./spec/placeholderhider_spec.js"
   },
   "keywords": [
     "placeholder"
