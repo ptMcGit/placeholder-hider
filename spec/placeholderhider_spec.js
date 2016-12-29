@@ -1,4 +1,4 @@
-describe("PlaceholderHider", function() {
+describe("PlaceholderHider", function(){
     var PlaceholderHider = require("../index.js");
 
     function MockElement(display) {
@@ -14,10 +14,8 @@ describe("PlaceholderHider", function() {
         this.querySelectorAll = function(elementClass){
             var e = elementClass.slice(1);
             return this[e];
-        }
-    };
-
-//    MockElement.prototype.style = {display: 'yes'};
+        };
+    }
 
     var mockElements = function(total) {
         var array = [];
@@ -41,19 +39,19 @@ describe("PlaceholderHider", function() {
         });
     });
 
-    describe("#gcmForAllWidths", function(){
+    describe("#gcm", function(){
         beforeEach(function(){
             this.pHH = new PlaceholderHider('itemClass', 'placeholderClass');
         });
 
-        it("returns a number of gcmForAllWidths", function(){
-            expect(typeof this.pHH.gcmForAllWidths()).toEqual('number')
+        it("returns a number of gcm", function(){
+            expect(typeof this.pHH.gcm()).toEqual('number');
         });
 
         it("sets gcm when given a number argument", function(){
-            this.pHH.gcmForAllWidths(5);
-            this.pHH.gcmForAllWidths(6);
-            expect(this.pHH.gcmForAllWidths()).toEqual(6);
+            this.pHH.gcm(5);
+            this.pHH.gcm(6);
+            expect(this.pHH.gcm()).toEqual(6);
         });
 
     });
@@ -63,7 +61,7 @@ describe("PlaceholderHider", function() {
             var count = 0;
             for(var i in placeholders)
                 if(placeholders[i].style.display === 'none')
-                    count++
+                    count++;
             return count;
         };
 
@@ -80,9 +78,20 @@ describe("PlaceholderHider", function() {
         });
 
         it("when gcm is changed a call #hidePlaceholders undisplays placeholders appropriately", function(){
-            this.pHH.gcmForAllWidths(6);
+            this.pHH.gcm(6);
             this.pHH.hidePlaceholders();
             expect(countHiddenPlaceholders(this.placeholders)).toEqual(2);
+        });
+
+        it("undisplays placeholders when # of items has changed #hidePlaceholders is called.", function(){
+            this.pHH.hidePlaceholders();
+            oldP = countHiddenPlaceholders(this.placeholders);
+            this.items.pop();
+
+            this.pHH.hidePlaceholders();
+
+            newP = countHiddenPlaceholders(this.placeholders);
+            expect(newP).not.toEqual(oldP);
         });
 
     });
