@@ -4,7 +4,7 @@ function PlaceholderHider(itemClass, placeholderClass){
         throw new Error("Expected two arguments, received " + arguments.length);
 
     for(var i in Array.prototype.slice.call(arguments)) {
-        if(document.querySelectorAll("." + arguments[i]).length === 0)
+        if(document.querySelectorAll(arguments[i]).length === 0)
             errors.push(arguments[i]);
     }
 
@@ -14,7 +14,7 @@ function PlaceholderHider(itemClass, placeholderClass){
     this.itemClass = itemClass;
     this.placeholderClass = placeholderClass;
     // assuming all placeholders use same initial display
-    this.defaultDisplay = document.querySelectorAll("." + this.placeholderClass)[0].style.display;
+    this.defaultDisplay = document.querySelectorAll(this.placeholderClass)[0].style.display;
 }
 
 // use to modify the gcm i.e. to change the numeric value that causes placeholders to disappear
@@ -37,8 +37,8 @@ PlaceholderHider.prototype.gcm = (function(value){
 // unhide placeholders then hide placeholders according to math on gcm
 PlaceholderHider.prototype.hidePlaceholders = function hp() {
     var i;
-    var items = document.querySelectorAll("." + this.itemClass);
-    var placeholders = document.querySelectorAll("." + this.placeholderClass);
+    var items = document.querySelectorAll(this.itemClass);
+    var placeholders = document.querySelectorAll(this.placeholderClass);
 
     for(var j in placeholders)
         placeholders[j].style.display = this.defaultDisplay;

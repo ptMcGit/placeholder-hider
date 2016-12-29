@@ -39,7 +39,7 @@ describe("PlaceholderHider", function(){
         it("gets document.style.display for first placeholder", function(){
             document = new MockDocument(this.items, this.placeholders);
             spyOn(document, 'querySelectorAll').and.callThrough();
-            this.pHH = new PlaceholderHider('itemClass', 'placeholderClass');
+            this.pHH = new PlaceholderHider('.itemClass', '.placeholderClass');
             expect(document.querySelectorAll).toHaveBeenCalledWith('.placeholderClass');
         });
 
@@ -52,13 +52,13 @@ describe("PlaceholderHider", function(){
 
             it("item class is nonexistent", function(){
                 expect(function(){
-                    new PlaceholderHider(nonClass, 'placeholderClass')})
+                    new PlaceholderHider(nonClass, '.placeholderClass')})
                     .toThrowError()
             });
 
             it("placeholder class is nonexistent", function(){
                 expect(function(){
-                    new PlaceholderHider('itemClass', placeholderClass)})
+                    new PlaceholderHider('.itemClass', placeholderClass)})
                     .toThrowError()
             });
 
@@ -74,7 +74,7 @@ describe("PlaceholderHider", function(){
 
     describe("#gcm", function(){
         beforeEach(function(){
-            this.pHH = new PlaceholderHider('itemClass', 'placeholderClass');
+            this.pHH = new PlaceholderHider('.itemClass', '.placeholderClass');
         });
 
         it("returns a number of gcm", function(){
@@ -102,7 +102,7 @@ describe("PlaceholderHider", function(){
             this.items = mockElements(9);
             this.placeholders = mockElements(5);
             document = new MockDocument(this.items, this.placeholders);
-            this.pHH = new PlaceholderHider('itemClass', 'placeholderClass');
+            this.pHH = new PlaceholderHider('.itemClass', '.placeholderClass');
         });
 
         it("undisplays placeholders when #hidePlaceholders is called", function() {

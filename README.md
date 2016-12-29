@@ -30,10 +30,9 @@ Add the module to the environment...
 Create an instance of `PlaceholderHider` and provide the class of the content elements (this is the primary content) followed by the class of the placeholder elements:
 
 ``` JavaScript
-pHH = PlaceholderHider('itemClass', 'placeholderClass');
+pHH = PlaceholderHider('.itemClass', '.placeholderClass');
 ```
-
-**NOTE** that there is no `.` prefix for these arguments.
+**NOTE** that there is a `.` prefix for these class names consistent with convention.
 
 Use `gcm()` to change how many placeholders are hidden from the default value:
 
