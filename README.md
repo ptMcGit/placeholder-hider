@@ -21,7 +21,7 @@ e.g.
 
 Having decided on the latter, what happens if you add additional items?
 
-**This module solves the last problem by hiding placeholders as needed to maintain "square" groupings**
+**This module offers a solution to the last problem by hiding placeholders as needed to maintain "square" groupings**
 
 ## How To Use It ##
 
@@ -45,17 +45,17 @@ Placeholders are hidden such that:
 
     (total primary elements + total placeholder elements) % 4 = 0
 
-So if you have a `gcm()` of 4 and 3 placeholder elements you can expect the following scenarios:
+So, if you have a `gcm()` of 4 and 3 placeholder elements you can expect the following scenarios:
 
-- With 10 primary elements, 1 placeholder hidden ((10 + 3) % 4 = 1)
-- With 13 primary elements, no placeholders are hidden ((13 + 3) % 4 = 0)
+- With 10 primary elements, 1 placeholder is hidden `((10 + 3) % 4 = 1)`
+- With 13 primary elements, no placeholders are hidden `((13 + 3) % 4 = 0)`
 - And, so on.
 
-You of course should provide at least `gcm()` - 1 placeholders.
+You, of course, should provide at least `gcm()` - 1 placeholders.
 
 Simply invoke `gcm()` with no arguments to get its value.
 
-Placeholders can be hidden immediately after `PlaceholderHider` is instantiated.
+In order to hide placeholders, invoke `hidePlaceholders()` immediately after `PlaceholderHider` is instantiated.
 Continuing with our example:
 
 ``` JavaScript
@@ -63,3 +63,7 @@ pHH.hidePlaceholders()
 ```
 
 This method toggles `style.display` for the appropriate placeholders between an original value (determined when `PlaceholderHider` is instantiated) and `none`.
+
+Additionally, if `gcm()` is set, `hidePlaceholders()` is invoked.
+
+Also note that any change in the number of items or placeholders will require `hidePlaceholders()` to be invoked to hide/unhide placeholders appropriately.
