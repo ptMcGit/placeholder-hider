@@ -40,7 +40,8 @@ PlaceholderHider.prototype.hidePlaceholders = function hp() {
     var items = document.querySelectorAll(this.itemClass);
     var placeholders = document.querySelectorAll(this.placeholderClass);
 
-    for(var j in placeholders)
+    var j;
+    for(j = 0; j < placeholders.length; j++)
         placeholders[j].style.display = this.defaultDisplay;
 
     var totalElements = items.length + placeholders.length;
